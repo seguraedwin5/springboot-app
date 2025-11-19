@@ -1,19 +1,21 @@
 pipeline {
-    agent none
+    agent {
+        label 'pc'
+    }
     
     stages {
         stage('Test & Build') {
             agent {
                 docker {
                     image 'maven:3.9.11-amazoncorretto-24-alpine'
-                    label 'pc'  // Tu PC Windows con Docker
-                    args '-v C:/Users/dw94/.m2:/root/.m2'  // Ruta Windows
+                    label 'pc'
+                    args '--network=host'
                     reuseNode true
                 }
             }
             steps {
                 echo '🚀 Starting build in Docker...'
-                sh 'mvn clean package'
+                sh 'mvn clean package -Dmaven.repo.local=/tmp/.m2/repository'
             }
             post {
                 always {
