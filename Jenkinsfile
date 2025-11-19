@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Test & Build') {
             agent {
-                docker {
+                dockerContainer {
                     image 'maven:3.8-openjdk-11'
                     args '--rm'
                 }
