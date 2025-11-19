@@ -1,5 +1,8 @@
 pipeline {
-    agent none
+    agent {
+        label 'pc'
+    
+    }
     
     stages {
         stage('Test & Build') {
