@@ -5,7 +5,7 @@ pipeline {
         stage('Test & Build') {
             agent {
                 dockerContainer {
-                    image 'maven:3.8.3-openjdk-11'
+                    image 'maven:3.9.11-amazoncorretto-24-alpine'
                 }
             }
             steps {
