@@ -7,7 +7,7 @@ pipeline {
                 docker {
                     image 'maven:3.9.11-amazoncorretto-24-alpine'
                     label 'pc'  // Tu PC Windows con Docker
-                    args '-v C:/Users/tu_usuario/.m2:/root/.m2'  // Ruta Windows
+                    args '-v C:/Users/dw94/.m2:/root/.m2'  // Ruta Windows
                     reuseNode true
                 }
             }
