@@ -6,7 +6,6 @@ pipeline {
             agent {
                 dockerContainer {
                     image 'maven:3.8-openjdk-11'
-                    args '--rm'
                 }
             }
             steps {
