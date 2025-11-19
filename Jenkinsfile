@@ -1,26 +1,23 @@
 pipeline {
-    agent {
-        label 'java24'
-    }
-
+    agent none
+    
     stages {
-        stage('Build') {
-            steps {
-                echo 'Building...'
-                bat 'mvnw clean package'
+        stage('Test & Build') {
+            agent {
+                docker {
+                    image 'maven:3.8-openjdk-11'
+                    args '--rm'
+                }
             }
-        }
-        stage('Test') {
             steps {
-                echo 'Testing...'
+                echo '🚀 Starting build in Docker...'
+                sh 'mvn clean package'
             }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying...'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                echo 'Deployment complete.'
-                
+            post {
+                always {
+                    junit 'target/surefire-reports/*.xml'
+                    archiveArtifacts 'target/*.jar'
+                }
             }
         }
     }
