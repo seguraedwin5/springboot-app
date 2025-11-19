@@ -7,6 +7,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building...'
+                sh 'mvn clean package'
             }
         }
         stage('Test') {
@@ -17,6 +18,9 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+                echo 'Deployment complete.'
+                
             }
         }
     }
